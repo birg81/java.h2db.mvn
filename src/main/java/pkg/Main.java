@@ -19,6 +19,7 @@ public class Main {
 			db_name = "PeopleDB";
 		String sql = "";
 		try {
+			// read sql file and transfert sql command into String data
 			sql = String.join("\n", Files.readAllLines(Paths.get(".//%s.sql".formatted(db_name)), StandardCharsets.UTF_8));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -42,6 +43,7 @@ public class Main {
 							%s...
 							---- (ABORTED QUERY) ----
 							""",
+							// print a digest query message
 							q.substring(0, 22)
 						);
 					}
