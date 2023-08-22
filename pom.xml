@@ -8,7 +8,9 @@
 	<groupId>pkg</groupId>
 	<artifactId>java.h2db.mvn</artifactId>
 	<version>1.0.0-alpha</version>
+	<description>Maven and H2DB</description>
 	<properties>
+		<java.version>20</java.version>
 		<maven.compiler.source>20</maven.compiler.source>
 		<maven.compiler.target>20</maven.compiler.target>
 	</properties>
