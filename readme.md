@@ -8,19 +8,36 @@ Benvenuti in questo repository GitHub 🚀 che mostra un pregetto ![MVNrepo](htt
 
 ## Caratteristiche fondamentali
 
-Una delle sue caratteristiche distintive è la dimensione ridotta, poiché archivia l'intero database in un unico file con estensione ```.db```, simile al funzionamento di [SQLite](https://www.sqlite.org/index.html).
-Questa caratteristica non solo garantisce robustezza, ma anche la resilienza dell'intero sistema in caso di corruzione.
+Una delle sue caratteristiche distintive è la dimensione ridotta, poiché archivia l'intero database in un unico file con estensione ```.mv.db```, simile al funzionamento di [SQLite](https://www.sqlite.org/index.html).
+Questa caratteristica non solo garantisce robustezza, ma anche la resilienza dell'intero sistema in caso di corruzione di un singolo db.
 
 H2DB, analogamente a SQLite, si distingue per la sua versatilità e velocità.
 Questa agilità lo rende ideale per prototipare progetti.
-Una caratteristica unica è la capacità di mantenere l'intero database in memoria, ottimizzando le prestazioni a scapito della persistenza. Al riavvio del progetto, i dati vengono ripristinati.
+Una caratteristica unica è la capacità di mantenere l'intero database in memoria, ottimizzando le prestazioni a scapito della persistenza.
+Al riavvio del progetto, i dati vengono, optando per questa modalità, irrimediabilmente persi.
+Per far uso di questa modalità (*in-memory storeging*) basta scrivere nel codice Java il seguente codice:
+
+```java
+Connection con = DriverManager.getConnection("jdbc:h2:mem:<db_name>", username, password);
+```
+
+Se invece si vuole puntare alla persistenza dei dati e al ripristino dei dati al riavvio dell'applicazione basta optare per la modalità classica (*Embedded storeging*) optando per il seguente codice:
+
+```java
+Connection con = DriverManager.getConnection("jdbc:h2:<path_to_db_name>", username, password);
+```
+
+Il nome del database non comprende la sua estensio (quindi senza ```.mv.db```).
+Per altre modalità di connesione consultare [qui](http://www.h2database.com/html/features.html).
 
 Essendo implementato in Java, H2DB è perfettamente integrato con il linguaggio, consentendo un approccio JDBC.
 Altri linguaggi possono sfruttare questo DBMS a patto di avere una JVM installata e il relativo connettore (sotto forma di file JAR).
 
-Nonostante la sua semplicità, H2DB offre un'interfaccia web integrata e una shell testuale estremamente versatile. L'interfaccia web è flessibile ma non supporta la creazione del file di database stesso. A tale scopo, si ricorre all'interfaccia da riga di comando che offre la possibilità di impostare caratteristiche avanzate.
+Nonostante la sua semplicità, H2DB offre un'interfaccia web integrata e una shell testuale estremamente versatile.
 
 ## WUI 
+
+L'interfaccia web è flessibile ma non supporta la creazione del file di database stesso. A tale scopo, si ricorre all'interfaccia da riga di comando che offre la possibilità di impostare caratteristiche avanzate.
 
 Per avviare l'interfaccia web, utilizzare il seguente comando:
 
@@ -39,7 +56,7 @@ che avvia l'interfaccia web sulla porta 5000 ed eventuamente quella TCP 5001 e p
 
 ![h2_WUI](https://www.codejava.net/images/articles/javase/jdbc/h2/H2_Console_login_page.png)
 
-Come si può osservare l'interfaccia non è da meno alla classica interfaccia web ![phpmyadminlogo](https://www.phpmyadmin.net/static/favicon.ico) [phpMyAdmin](https://www.phpmyadmin.net) di MySQL.
+Come si può osservare l'interfaccia non è da meno alla classica interfaccia web <img src="https://www.phpmyadmin.net/static/favicon.ico" height="13"/> [phpMyAdmin](https://www.phpmyadmin.net) di MySQL.
 
 ![h2_WUI_2](https://www.tutorialspoint.com/h2_database/images/pop_ups.jpg)
 
@@ -55,11 +72,12 @@ Per accedere ad essa si può adoperare il seguente comando:
 java -cp h2.*.jar org.h2.tools.Shell
 ```
 
-Questa interfaccia nel caso inesistenza del DB permette di impostare le credenziali; attraverso una serie di passaggi, sarà possibile scegliere a proprio piacimento username e password.
+Questa interfaccia nel caso che il DB non esista, permetterà di crearlo e di settare in maniera avanzata tutte le credenziali; attraverso una serie di passaggi, sarà possibile scegliere a proprio piacimento username e password oltre che la posizione del db sul disco.
 
 Questa interfaccia permetterà, inoltre, in caso di DB già esistente, di autenticarsi e successivamente operare in maniera professionale.
 
-A differenza di MySQL, non è richiesto avviare un server H2 in un'istanza separata. Nel codice Java, è sufficiente includere:
+## Caricare istanza del server nel codice java
+A differenza di MySQL, non è richiesto avviare un server H2 in un'istanza separata. Nel codice Java, è sufficiente richiamare:
 
 ```java
 org.h2.Driver.load();	// Carica il Server H2DB
@@ -80,9 +98,13 @@ All'interno del file si può facilmente notare il seguente snippet
 <description>Maven and H2DB</description>
 ```
 
-dove ```grupId``` rappresenta il package nel qualve verrano messi i file, ```artifactId``` rappresenta il nome del progetto e ```description``` è una descrizione del progetto.
+dove:
 
-Si può inoltre notare il seguente spezzone
+* ```grupId``` rappresenta il package nel qualve verrano disposte le diverse classi
+* ```artifactId``` rappresenta il nome del progetto
+* ```description``` è una descrizione del progetto (opzionale.
+
+Si può inoltre notare il seguente spezzone:
 
 **WIP**
 
