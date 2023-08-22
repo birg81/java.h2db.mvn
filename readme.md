@@ -43,7 +43,7 @@ Come si può osservare l'interfaccia non è da meno alla classica interfaccia we
 
 ![h2_WUI_2](https://www.tutorialspoint.com/h2_database/images/pop_ups.jpg)
 
-##CLI
+## CLI
 
 Se il database non esiste o vi è la necessità di impostare le credenziali di accesso al db, la CLI testuale è necessaria!
 
