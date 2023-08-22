@@ -55,7 +55,9 @@ Per accedere ad essa si può adoperare il seguente comando:
 java -cp h2.*.jar org.h2.tools.Shell
 ```
 
-Questa interfaccia permetterà non solo di creare un nuovo DB ma anche di recuperarne uno già esistente ed operare in maniera testuale
+Questa interfaccia nel caso inesistenza del DB permette di impostare le credenziali; attraverso una serie di passaggi, sarà possibile scegliere a proprio piacimento username e password.
+
+Questa interfaccia permetterà, inoltre, in caso di DB già esistente, di autenticarsi e successivamente operare in maniera professionale.
 
 A differenza di MySQL, non è richiesto avviare un server H2 in un'istanza separata. Nel codice Java, è sufficiente includere:
 
@@ -64,6 +66,23 @@ org.h2.Driver.load();	// Carica il Server H2DB
 // esegui operazioni
 org.h2.Driver.unload();	// Ferma il Server H2DB
 ```
+
+## file POM
+
+Il file [pom.xml](./pom.xml) o [**Project Object Model**](https://it.wikipedia.org/wiki/Apache_Maven) è un file costruito da Maven e serve per gestire le dipendenze del progetto.
+
+All'interno del file si può facilmente notare il seguente snippet
+
+```xml
+<groupId>pkg</groupId>
+<artifactId>java.h2db.mvn</artifactId>
+<version>1.0.0-alpha</version>
+<description>Maven and H2DB</description>
+```
+
+dove ```grupId``` rappresenta il package nel qualve verrano messi i file, ```artifactId``` rappresenta il nome del progetto e ```description``` è una descrizione del progetto.
+
+Si può inoltre notare il seguente spezzone
 
 ## 🔗 Links
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/biagio-rosario-greco-77145774/)
