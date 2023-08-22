@@ -8,12 +8,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-/*
->> avviare la gui web ed eventualmente su indica su che porta deve essere avviata
-java -jar h2.*.jar -webPort 5000 [-tcpPort 5001] [-pgPort 5002]
->> creazione (in caso non esista) e selezione di un DB attraverso CLI
-java -cp h2.*.jar org.h2.tools.Shell
-*/
 public class Main {
 	public static void main(String[] args) {
 		Connection con = null;
@@ -25,19 +19,14 @@ public class Main {
 			db_name = "PeopleDB";
 		String sql = "";
 		try {
-			sql = String.join(
-				"\n",
-				Files.readAllLines(Paths.get(".//%s.sql".formatted(db_name)), StandardCharsets.UTF_8)
-			);
+			sql = String.join("\n", Files.readAllLines(Paths.get(".//%s.sql".formatted(db_name)), StandardCharsets.UTF_8));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		try {
+			// Start H2DB Server
 			org.h2.Driver.load();
-			con = DriverManager.getConnection(
-				"jdbc:h2:.//%s".formatted(db_name),
-				username, password
-			);
+			con = DriverManager.getConnection("jdbc:h2:.//%s".formatted(db_name), username, password);
 			st = con.createStatement();
 			for(String q: sql.split(";")) {
 				q = q.strip();
@@ -74,6 +63,7 @@ public class Main {
 			st.close();
 			rs.close();
 			con.close();
+			// close H2DB Server
 			org.h2.Driver.unload();
 		} catch (Exception e) {
 			e.printStackTrace();
