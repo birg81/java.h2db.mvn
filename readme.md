@@ -16,16 +16,13 @@ Subito dopo, i risultati di una query vengono visualizzati a schermo.
 
 ### Update del progetto
 
-Nella sua fase embrionale, il progetto ha concepito un panorama in cui si sono amalgamate le capacità agili di Maven e la potenza intrinseca del database H2.
-In una fase successiva, spinto dal desiderio di condurre un'analisi comparativa tra le prestazioni di H2 e MySQL, è stata intrapresa una rivisitazione di porzioni del codice.
-Questa operazione di ristrutturazione è stata mirata a preparare il terreno per un'agevole adozione futura di MySQL mediante interventi chirurgici sul codice esistente.
-Per conferire un'ulteriore dimensione di fascino all'approccio, è stata abbandonata l'idea di installare strumenti onerosi come XAMPP o MySQL in ambiente locale.
-Al contrario, è stata fatta la decisione di adottare un servizio di database online ospitato da <img src="https://db4free.net/images/favicon.png" height="13" />[db4free] (https://db4free.net/phpMyAdmin).
-Tale piattaforma permette, previa una registrazione, l'uso di un R-DBMS MySQL seppur in forma limitata ma tali limitazioni non pongono eccessivi paletti a questo progetto di natura didattica.
-Parallelamente nel file [pom.xml](./pom.xml), è stata inserita la clausola di dipendenza per MySQL.
-Questa clausola, opportunamente modellata, può essere rimossa nel caso in cui la strada dell'utilizzo di MySQL non venga percorsa.
-Ulteriormente, sono state implementate una serie di tattiche all'interno del nostro codice operativo, finalizzate a consentire una facile discriminazione tra l'utilizzo di H2 e MySQL.
-In un quadro riassuntivo, il file [PeopleDB.sql](./PeopleDB.sql) è stato assorbito dall'ambiente online, mentre nel corpo del nostro codice risiedono accorgimenti sofisticati volti a decifrare se il database in uso sia di natura H2 o MySQL, agevolando così la fruizione dei risultati.
+Nella sua fase embrionale, il progetto combinava le capacità di Maven alla potenza di H2; successivamente, allo scopo di condurre analisi comparative, è stata intrapresa una rivisitazione per preparare il terreno per un'agevole adozione di MySQL in luogo di H2.
+Per conferire un'ulteriore dimensione di fascino all'approccio, è stata abbandonata l'idea di installare strumenti onerosi come XAMPP o MySQL in ambiente locale ed è stato deciso di adottare un servizio online ospitato da <img src="https://db4free.net/images/favicon.png" height="13" /> [db4free](https://db4free.net/phpMyAdmin); la cui piattaforma permette, previa una registrazione, l'uso di un R-DBMS MySQL online.
+Tale piattaforma seppur con qualche limitazione non ha però compromesso la natura didattica del progetto.
+In un quadro riassuntivo:
+* Nel file [pom.xml](./pom.xml), è stata inserito lo starter per la dipendenza per MySQL oltre ad H2; uno due starter può essere estromesso e/o rimosso rimosso nel caso non se ne faccia utilizzo.
+* Il file [PeopleDB.sql](./PeopleDB.sql) è stato sposato online.
+* Nel corpo codice sono stateffettuate rivisitazioni mediante accorgimenti chirurgici su porzioni specifiche del codice volti a discriminare il database in uso.
 
 ## Caratteristiche fondamentali di H2DB
 
