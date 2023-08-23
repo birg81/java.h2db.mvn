@@ -174,7 +174,21 @@ di seguito:
 * ```/<artifactId/src/main/java/<groupId>``` contiene il l'entry point del progetto, quali ad esempio ```Main.java``` il quale può essere tranquillamente essere rinominato. Gli altri package possono essere eventualmente disposte ad esempio in questo modo ```/<artifactId/src/main/java/<groupId>.<package>```
 * ```/resources``` è una cartella che contiene risorse varie ed eventuali, in questo progetto non c'è nessuna risorsa e può tranquillamente essere cancellata
 * ```/test``` è una cartella che contiene Unit Test e può tranquillamente essere cancellata
-* ```/target``` è la cartella dei file .class, è importante che ci sia almeno ```/target/classes``` altrimenti Maven ha qualche problema ad essere validato
+* ```/target``` è la cartella dei file .class, è importante che ci sia almeno ```/target/classes``` altrimenti Maven ha qualche problema ad essere validato.
+
+Di conseguenza i file e le cartelle essenziali del progetto sono le seguenti:
+
+```bash
+/<artifactId>
+-/src
+--/main
+---/java
+----/<groupId>
+-----Main.java
+-/target
+---/classes
+-pom.xml
+```
 
 ## 🔗 Links
 [![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/biagio-rosario-greco-77145774/)
