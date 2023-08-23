@@ -1,37 +1,43 @@
 package pkg;
-// for reading sql file
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 // for use JDBC fecturies
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+// for reading sql file
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 public class Main {
 	public static void main(String[] args) {
 		Connection con = null;
 		Statement st = null;
 		ResultSet rs = null;
 		final String
-			username = "admin",
-			password = "12345",
-			db_name = "PeopleDB";
-		String sql = "";
-		try {
-			// read sql file and transfert sql command into String data
-			sql = String.join("\n", Files.readAllLines(Paths.get(".//%s.sql".formatted(db_name)), StandardCharsets.UTF_8));
-		} catch (Exception e) {
-			e.printStackTrace();
+			// https://db4free.net/phpMyAdmin/ basta registrarsi
+			protocol = /* */ "h2:./",	/*	"h2:mem:./",	/* * / "mysql://db4free.net:3306", /* */
+			username = "birg81",
+			password = "itirenatoelia",
+			db_name = protocol.contains("h2") ? "PeopleDB" : "teaching_repo";
+		String sql = "SELECT * FROM Person ORDER BY firstname ASC LIMIT 5;";
+		if(protocol.contains("h2")) {
+			try {
+				// read sql file and transfert sql command into String data
+				sql = String.join("\n",Files.readAllLines(Paths.get(".//%s.sql".formatted(db_name)), StandardCharsets.UTF_8));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		try {
-			// Start H2DB Server
-			org.h2.Driver.load();
-			con = DriverManager.getConnection("jdbc:h2:.//%s".formatted(db_name), username, password);
+			if(protocol.contains("h2")) org.h2.Driver.load();		// Start H2DB Server
+			con = DriverManager.getConnection(
+				"jdbc:%s/%s".formatted(protocol, db_name),
+				username, password
+			);
 			st = con.createStatement();
 			for(String q: sql.split(";")) {
 				q = q.strip();
-				if(!q.toLowerCase().contains("select")) 
+				if(!q.toLowerCase().contains("select") && protocol.contains("h2")) 
 					try {
 						st.execute(q);
 						con.commit();
@@ -43,7 +49,6 @@ public class Main {
 							%s...
 							---- (ABORTED QUERY) ----
 							""",
-							// print a digest query message
 							q.substring(0, 22)
 						);
 					}
@@ -65,8 +70,7 @@ public class Main {
 			st.close();
 			rs.close();
 			con.close();
-			// close H2DB Server
-			org.h2.Driver.unload();
+			if(protocol.contains("h2")) org.h2.Driver.unload();		// Stop H2DB Server
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
