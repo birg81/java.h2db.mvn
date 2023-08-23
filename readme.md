@@ -165,8 +165,8 @@ Un progetto maven è così organizzato:
 --/test
 ---/java
 -/target
----/classes
----/test-classes
+--/classes
+--/test-classes
 -pom.xml
 ```
 
@@ -186,7 +186,7 @@ Di conseguenza i file e le cartelle essenziali del progetto sono le seguenti:
 ----/<groupId>
 -----Main.java
 -/target
----/classes
+--/classes
 -pom.xml
 ```
 
