@@ -14,6 +14,19 @@ Durante la prima esecuzione, dato che il database non esiste ancora, viene gener
 Considerando l'assenza di dati nel database, la tabella ```Person``` viene create e popolata in conformità con le istruzioni specificate nel file [```PeopleDB.sql```](./PeopleDB.sql).
 Subito dopo, i risultati di una query vengono visualizzati a schermo.
 
+### Update del progetto
+
+Nella sua fase embrionale, il progetto ha concepito un panorama in cui si sono amalgamate le capacità agili di Maven e la potenza intrinseca del database H2.
+In una fase successiva, spinto dal desiderio di condurre un'analisi comparativa tra le prestazioni di H2 e MySQL, è stata intrapresa una rivisitazione di porzioni del codice.
+Questa operazione di ristrutturazione è stata mirata a preparare il terreno per un'agevole adozione futura di MySQL mediante interventi chirurgici sul codice esistente.
+Per conferire un'ulteriore dimensione di fascino all'approccio, è stata abbandonata l'idea di installare strumenti onerosi come XAMPP o MySQL in ambiente locale.
+Al contrario, è stata fatta la decisione di adottare un servizio di database online ospitato da <img src="https://db4free.net/images/favicon.png" height="13" />[db4free] (https://db4free.net/phpMyAdmin).
+Tale piattaforma permette, previa una registrazione, l'uso di un R-DBMS MySQL seppur in forma limitata ma tali limitazioni non pongono eccessivi paletti a questo progetto di natura didattica.
+Parallelamente nel file [pom.xml](./pom.xml), è stata inserita la clausola di dipendenza per MySQL.
+Questa clausola, opportunamente modellata, può essere rimossa nel caso in cui la strada dell'utilizzo di MySQL non venga percorsa.
+Ulteriormente, sono state implementate una serie di tattiche all'interno del nostro codice operativo, finalizzate a consentire una facile discriminazione tra l'utilizzo di H2 e MySQL.
+In un quadro riassuntivo, il file [PeopleDB.sql](./PeopleDB.sql) è stato assorbito dall'ambiente online, mentre nel corpo del nostro codice risiedono accorgimenti sofisticati volti a decifrare se il database in uso sia di natura H2 o MySQL, agevolando così la fruizione dei risultati.
+
 ## Caratteristiche fondamentali di H2DB
 
 Una delle sue caratteristiche distintive è la dimensione ridotta, poiché archivia l'intero database in un unico file con estensione ```.mv.db```, simile al funzionamento di [SQLite](https://www.sqlite.org/index.html).
@@ -33,6 +46,18 @@ Se invece si vuole puntare alla persistenza dei dati e al ripristino dei dati al
 
 ```java
 Connection con = DriverManager.getConnection("jdbc:h2:<path_to_db_name>", username, password);
+```
+
+Analogamente nel caso in cui si faccia uso con un R-DBMS MySQL il codice invece si trasforma in:
+
+```java
+Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/<db_name>", username, password);
+```
+
+o analogamente nel caso in cui il DB sia ospitato online il codice relativo sarà:
+
+```java
+Connection con = DriverManager.getConnection("jdbc:mysql://db4free.net:3306/<db_name>", username, password);
 ```
 
 Il nome del database non comprende la sua estensione (quindi senza ```.mv.db```).
